@@ -4,6 +4,7 @@ import 'package:cemeteryapp/storage_services.dart';
 import 'package:get/get.dart';
 
 import '../../home_screen/view/home_screen_view.dart';
+import '../../home_screen_cemetery/view/home_screen_cemetery_view.dart';
 import '../../login_screen/view/login_screen_view.dart';
 
 class SpashScreenController extends GetxController {
@@ -25,6 +26,7 @@ class SpashScreenController extends GetxController {
       if (Get.find<StorageServices>().storage.read("accntId") != null) {
         if (Get.find<StorageServices>().storage.read("usertypeId").toString() ==
             "2") {
+          Get.offAll(() => HomescreenCemeteryView());
         } else if (Get.find<StorageServices>()
                 .storage
                 .read("usertypeId")

@@ -4,14 +4,17 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 
+import '../../lot_registration_screen/view/lot_registration_screen_view.dart';
 import '../../storage_services.dart';
 import '../controller/home_screen_cemetery_controller.dart';
+import '../dialog/home_screen_cemetery_dialog.dart';
 
 class HomescreenCemeteryView extends GetView<HomeScreenCemeteryController> {
   const HomescreenCemeteryView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    Get.put(HomeScreenCemeteryController());
     return SafeArea(
       child: Scaffold(
         body: Column(
@@ -29,6 +32,24 @@ class HomescreenCemeteryView extends GetView<HomeScreenCemeteryController> {
                           image: NetworkImage(
                               "${AppEndpoint.imageEndpoint}/${Get.find<StorageServices>().storage.read("cemImage")}"))),
                 ),
+                Positioned(
+                    top: 1.h,
+                    left: 2.w,
+                    child: InkWell(
+                      onTap: () {
+                        HomeScreenCemeteryDialog.showDialog();
+                      },
+                      child: Container(
+                        height: 7.h,
+                        width: 7.h,
+                        decoration: BoxDecoration(
+                            color: Colors.white, shape: BoxShape.circle),
+                        child: Icon(
+                          Icons.logout,
+                          color: AppColor.mainColors,
+                        ),
+                      ),
+                    )),
                 Positioned(
                   bottom: 2.5.w,
                   left: 2.w,
@@ -87,18 +108,118 @@ class HomescreenCemeteryView extends GetView<HomeScreenCemeteryController> {
                 )
               ],
             ),
-            Container(
-              child: ListView.builder(
-                shrinkWrap: true,
-                itemCount: 1,
-                itemBuilder: (BuildContext context, int index) {
-                  return Padding(
-                    padding: EdgeInsets.only(left: 5.w, right: 5.w),
-                  );
-                },
+            SizedBox(
+              height: 2.h,
+            ),
+            Expanded(
+              child: Container(
+                child: Obx(
+                  () => ListView.builder(
+                    itemCount: controller.cemeteryLot.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return Padding(
+                        padding:
+                            EdgeInsets.only(left: 5.w, right: 5.w, bottom: 2.h),
+                        child: Container(
+                          padding: EdgeInsets.only(left: 2.w, top: 2.w),
+                          height: 13.h,
+                          width: 100.w,
+                          decoration: BoxDecoration(
+                              color: Color.fromARGB(255, 243, 245, 144),
+                              borderRadius: BorderRadius.circular(10)),
+                          child: Column(
+                            children: [
+                              Row(
+                                children: [
+                                  Text(
+                                    "Lot no. ",
+                                    style: TextStyle(fontSize: 10.sp),
+                                  ),
+                                  Text(
+                                    controller.cemeteryLot[index].lotId,
+                                    style: TextStyle(
+                                        fontSize: 12.sp,
+                                        fontWeight: FontWeight.w600),
+                                  )
+                                ],
+                              ),
+                              Row(
+                                children: [
+                                  Text(
+                                    "Price: ",
+                                    style: TextStyle(fontSize: 10.sp),
+                                  ),
+                                  Text(
+                                    "P " +
+                                        controller.cemeteryLot[index].lotPrice,
+                                    style: TextStyle(
+                                        fontSize: 10.sp,
+                                        fontWeight: FontWeight.w500),
+                                  )
+                                ],
+                              ),
+                              Row(
+                                children: [
+                                  Text(
+                                    "Status: ",
+                                    style: TextStyle(fontSize: 10.sp),
+                                  ),
+                                  Text(
+                                    controller.cemeteryLot[index].status == "1"
+                                        ? "Vacant"
+                                        : controller.cemeteryLot[index]
+                                                    .status ==
+                                                "2"
+                                            ? "Occupied"
+                                            : "Reserved",
+                                    style: TextStyle(
+                                        color: controller.cemeteryLot[index]
+                                                    .status ==
+                                                "1"
+                                            ? Color.fromARGB(255, 99, 182, 4)
+                                            : controller.cemeteryLot[index]
+                                                        .status ==
+                                                    "2"
+                                                ? Color.fromARGB(
+                                                    255, 87, 88, 86)
+                                                : Color.fromARGB(
+                                                    255, 204, 20, 7),
+                                        fontSize: 10.sp,
+                                        fontWeight: FontWeight.normal),
+                                  )
+                                ],
+                              ),
+                              Row(
+                                children: [
+                                  Text(
+                                    "Description: ",
+                                    style: TextStyle(fontSize: 10.sp),
+                                  ),
+                                  Text(
+                                    controller
+                                        .cemeteryLot[index].lotDescription,
+                                    style: TextStyle(
+                                        fontSize: 10.sp,
+                                        fontWeight: FontWeight.normal),
+                                  )
+                                ],
+                              )
+                            ],
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                ),
               ),
             )
           ],
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            Get.to(() => LotRegistrationView());
+          },
+          child: Icon(Icons.add),
         ),
       ),
     );

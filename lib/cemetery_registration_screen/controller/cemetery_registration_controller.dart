@@ -18,7 +18,6 @@ class CemeteryRegistrationController extends GetxController {
   GoogleMapController? googleMapController;
   RxList<Marker> markers = <Marker>[].obs;
 
-  var kGoogleApiKey = "AIzaSyDruL4IJjM7_p9NFUD7yKq0KYlYSkDvDXo";
   RxBool isLoading = false.obs;
 
   RxDouble initialLatitude = 0.0.obs;
