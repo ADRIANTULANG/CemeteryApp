@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "497882085026",
+    "project_id": "authproject-479cc",
+    "storage_bucket": "authproject-479cc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:497882085026:android:93b285ed7e3d231c4949fb",
+        "android_client_info": {
+          "package_name": "com.example.cemeteryapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "497882085026-e1nsep77adddpu2j8nmcd21j0mhjp9o5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.cemeteryapp",
+            "certificate_hash": "a4c5240b6ef7a55f54058e65accd542bc534fc12"
+          }
+        },
+        {
+          "client_id": "497882085026-impc4ffi270e97b8s2uvoiq1vqnf4fsd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAIE-nefZ98PDX72PRLqmvVnVH89oZsbx8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "497882085026-impc4ffi270e97b8s2uvoiq1vqnf4fsd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
