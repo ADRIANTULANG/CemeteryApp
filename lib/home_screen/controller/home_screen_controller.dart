@@ -78,12 +78,14 @@ class HomeScreenController extends GetxController {
   searchDeceased({required String deceasedName}) async {
     var lat = 0.0;
     var long = 0.0;
+
     for (var i = 0; i < deceasedList.length; i++) {
       String fullName = deceasedList[i].dcsFname +
           " " +
           deceasedList[i].dcsMname +
           " " +
           deceasedList[i].dcsLname;
+
       if (deceasedName.trim().toLowerCase().toString() ==
           fullName.trim().toLowerCase().toString()) {
         lat = double.parse(deceasedList[i].lotLatitude);
@@ -101,7 +103,7 @@ class HomeScreenController extends GetxController {
             title: "$deceasedName's location",
           )));
 
-      googleMapController!.animateCamera(CameraUpdate.newCameraPosition(
+      await googleMapController!.animateCamera(CameraUpdate.newCameraPosition(
           CameraPosition(
               bearing: 192.8334901395799,
               target: LatLng(lat, long),

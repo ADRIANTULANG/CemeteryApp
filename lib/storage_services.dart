@@ -49,7 +49,6 @@ class StorageServices extends GetxController {
     required String cmLongitude,
     required String cmLatitude,
     required String cDescription,
-    required String cmStatus,
     required String cmEmail,
     required String cmAddress,
     required String cemImage,
@@ -59,7 +58,7 @@ class StorageServices extends GetxController {
     storage.write("cmLongitude", cmLongitude);
     storage.write("cmLatitude", cmLatitude);
     storage.write("cDescription", cDescription);
-    storage.write("cmStatus", cmStatus);
+
     storage.write("cmEmail", cmEmail);
     storage.write("cmAddress", cmAddress);
     storage.write("cemImage", cemImage);
@@ -86,7 +85,6 @@ class StorageServices extends GetxController {
     storage.remove("cmLongitude");
     storage.remove("cmLatitude");
     storage.remove("cDescription");
-    storage.remove("cmStatus");
     storage.remove("cmEmail");
     storage.remove("cmAddress");
     storage.remove("cemImage");

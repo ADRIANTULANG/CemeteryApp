@@ -102,7 +102,6 @@ class CemeteryDetails {
     required this.cmLongitude,
     required this.cmLatitude,
     required this.cDescription,
-    required this.cmStatus,
     required this.cmEmail,
     required this.cmAddress,
     required this.cemImage,
@@ -113,7 +112,7 @@ class CemeteryDetails {
   String cmLongitude;
   String cmLatitude;
   String cDescription;
-  String cmStatus;
+
   String cmEmail;
   String cmAddress;
   String cemImage;
@@ -125,7 +124,6 @@ class CemeteryDetails {
         cmLongitude: json["cm_longitude"],
         cmLatitude: json["cm_latitude"],
         cDescription: json["c_description"],
-        cmStatus: json["cm_status"],
         cmEmail: json["cm_email"],
         cmAddress: json["cm_address"],
         cemImage: json["cem_image"],
@@ -137,7 +135,6 @@ class CemeteryDetails {
         "cm_longitude": cmLongitude,
         "cm_latitude": cmLatitude,
         "c_description": cDescription,
-        "cm_status": cmStatus,
         "cm_email": cmEmail,
         "cm_address": cmAddress,
         "cem_image": cemImage,

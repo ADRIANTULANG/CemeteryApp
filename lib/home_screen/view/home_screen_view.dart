@@ -119,14 +119,15 @@ class HomeScreenView extends GetView<HomeScreenController> {
                     if (controller.debounce?.isActive ?? false)
                       controller.debounce!.cancel();
                     controller.debounce =
-                        Timer(const Duration(milliseconds: 1000), () {
+                        Timer(const Duration(milliseconds: 1000), () async {
                       FocusScope.of(context).unfocus();
                       if (controller.deceasedTextfield.text.trim().toString() ==
                           "") {
                       } else {
-                        controller.searchDeceased(
+                        await controller.searchDeceased(
                             deceasedName: controller.deceasedTextfield.text);
                       }
+                      FocusScope.of(context).unfocus();
                     });
                   },
                   decoration: InputDecoration(
@@ -155,7 +156,10 @@ class HomeScreenView extends GetView<HomeScreenController> {
                           Icons.person,
                           color: AppColor.mainColors,
                         ),
-                        onPressed: () => Scaffold.of(context).openDrawer()),
+                        onPressed: () {
+                          Scaffold.of(context).openDrawer();
+                          FocusScope.of(context).unfocus();
+                        }),
                   ),
                 )),
             Container(

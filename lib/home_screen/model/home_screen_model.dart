@@ -13,7 +13,6 @@ class CemeteryList {
     required this.longitude,
     required this.latitude,
     required this.companyDescription,
-    required this.cmStatus,
     required this.cmEmail,
     required this.contactNumber,
     required this.address,
@@ -25,7 +24,7 @@ class CemeteryList {
   String longitude;
   String latitude;
   String companyDescription;
-  String cmStatus;
+
   String cmEmail;
   String contactNumber;
   String address;
@@ -37,7 +36,6 @@ class CemeteryList {
         longitude: json["longitude"],
         latitude: json["latitude"],
         companyDescription: json["companyDescription"],
-        cmStatus: json["cm_status"],
         cmEmail: json["cm_email"],
         contactNumber: json["contactNumber"],
         address: json["address"],
@@ -50,7 +48,6 @@ class CemeteryList {
         "longitude": longitude,
         "latitude": latitude,
         "companyDescription": companyDescription,
-        "cm_status": cmStatus,
         "cm_email": cmEmail,
         "contactNumber": contactNumber,
         "address": address,

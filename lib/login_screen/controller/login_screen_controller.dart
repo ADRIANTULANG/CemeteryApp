@@ -50,7 +50,6 @@ class LoginController extends GetxController {
             cmLongitude: cemeteryDetails[0].cmLongitude,
             cmLatitude: cemeteryDetails[0].cmLatitude,
             cDescription: cemeteryDetails[0].cDescription,
-            cmStatus: cemeteryDetails[0].cmStatus,
             cmEmail: cemeteryDetails[0].cmEmail,
             cmAddress: cemeteryDetails[0].cmAddress,
             cemImage: cemeteryDetails[0].cemImage);

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 
+import '../../cemetery_reservation_list_screen/view/cemetery_reservation_list_view.dart';
 import '../../lot_registration_screen/view/lot_registration_screen_view.dart';
 import '../../storage_services.dart';
 import '../controller/home_screen_cemetery_controller.dart';
@@ -32,6 +33,24 @@ class HomescreenCemeteryView extends GetView<HomeScreenCemeteryController> {
                           image: NetworkImage(
                               "${AppEndpoint.imageEndpoint}/${Get.find<StorageServices>().storage.read("cemImage")}"))),
                 ),
+                Positioned(
+                    top: 10.h,
+                    left: 2.w,
+                    child: InkWell(
+                      onTap: () {
+                        Get.to(() => CemeteryReservationListView());
+                      },
+                      child: Container(
+                        height: 7.h,
+                        width: 7.h,
+                        decoration: BoxDecoration(
+                            color: Colors.white, shape: BoxShape.circle),
+                        child: Icon(
+                          Icons.list,
+                          color: AppColor.mainColors,
+                        ),
+                      ),
+                    )),
                 Positioned(
                     top: 1.h,
                     left: 2.w,
