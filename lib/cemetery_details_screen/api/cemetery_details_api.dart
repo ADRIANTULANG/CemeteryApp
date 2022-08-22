@@ -16,7 +16,8 @@ class CemeteryDetailsApi {
   }) async {
     try {
       var response = await client.post(
-        Uri.parse('${AppEndpoint.endPointDomain}/get-cemetery-lots.php'),
+        Uri.parse(
+            '${AppEndpoint.endPointDomain}/get-cemetery-lots-for-display.php'),
         body: {
           "cemeteryID": cemeteryID.toString(),
         },

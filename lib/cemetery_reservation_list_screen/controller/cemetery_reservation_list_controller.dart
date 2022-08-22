@@ -3,6 +3,7 @@ import 'package:cemeteryapp/storage_services.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../home_screen_cemetery/controller/home_screen_cemetery_controller.dart';
 import '../api/cemetery_reservation_list_api.dart';
 import '../model/cemetery_reservation_list_model.dart';
 
@@ -17,6 +18,7 @@ class CemeteryReservationListController extends GetxController {
 
   @override
   void onClose() {
+    Get.find<HomeScreenCemeteryController>().getCemeteryLot();
     super.onClose();
   }
 

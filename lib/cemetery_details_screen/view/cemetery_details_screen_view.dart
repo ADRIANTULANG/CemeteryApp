@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:sizer/sizer.dart';
-import '../../color_class.dart';
+// import '../../color_class.dart';
 import '../../deceased_filling_screen/view/deceased_filling_view.dart';
 import '../controller/cemetery_details_screen_controller.dart';
 
@@ -134,7 +134,7 @@ class CemeteryDetailsView extends GetView<CemeteryDetailsController> {
                                                     .lotList[index].lotPrice
                                                     .toString(),
                                             style: TextStyle(
-                                                color: AppColor.mainColors,
+                                                // color: AppColor.mainColors,
                                                 fontWeight: FontWeight.bold,
                                                 fontSize: 15.sp),
                                           ),
