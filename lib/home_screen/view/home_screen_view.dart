@@ -201,20 +201,37 @@ class HomeScreenView extends GetView<HomeScreenController> {
                               SizedBox(
                                 width: 1.5.w,
                               ),
-                              Container(
-                                height: 20.h,
-                                width: 35.w,
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.only(
-                                      topLeft: Radius.circular(5),
-                                      bottomLeft: Radius.circular(5),
+                              controller.cemeteryList[index].image != ""
+                                  ? Container(
+                                      height: 20.h,
+                                      width: 35.w,
+                                      decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.only(
+                                            topLeft: Radius.circular(5),
+                                            bottomLeft: Radius.circular(5),
+                                          ),
+                                          image: DecorationImage(
+                                              fit: BoxFit.cover,
+                                              image: NetworkImage(
+                                                  "${AppEndpoint.imageEndpoint}/${controller.cemeteryList[index].image}")),
+                                          border:
+                                              Border.all(color: Colors.black)),
+                                    )
+                                  : Container(
+                                      height: 20.h,
+                                      width: 35.w,
+                                      decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.only(
+                                            topLeft: Radius.circular(5),
+                                            bottomLeft: Radius.circular(5),
+                                          ),
+                                          image: DecorationImage(
+                                              fit: BoxFit.cover,
+                                              image: NetworkImage(
+                                                  "${AppEndpoint.imageEndpoint}/logo-grave.png")),
+                                          border:
+                                              Border.all(color: Colors.black)),
                                     ),
-                                    image: DecorationImage(
-                                        fit: BoxFit.cover,
-                                        image: NetworkImage(
-                                            "${AppEndpoint.imageEndpoint}/${controller.cemeteryList[index].image}")),
-                                    border: Border.all(color: Colors.black)),
-                              ),
                               SizedBox(
                                 width: 1.5.w,
                               ),
