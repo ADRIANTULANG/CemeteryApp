@@ -53,7 +53,16 @@ dependencies:
   firebase_auth: ^3.3.15
   #flutter otp textfield
   flutter_otp_text_field: ^1.1.0
-  #get storage
+  #flutter spinkit
+  flutter_spinkit: ^5.1.0
+  #flutter launcher icons - edit launcher icons
+  flutter_launcher_icons: ^0.10.0
+
+
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "assets/images/launchernew.png"
   
 
 

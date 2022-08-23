@@ -133,102 +133,154 @@ class HomescreenCemeteryView extends GetView<HomeScreenCemeteryController> {
             Expanded(
               child: Container(
                 child: Obx(
-                  () => ListView.builder(
-                    itemCount: controller.cemeteryLot.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      return Padding(
-                        padding:
-                            EdgeInsets.only(left: 5.w, right: 5.w, bottom: 2.h),
-                        child: Container(
-                          padding: EdgeInsets.only(left: 2.w, top: 2.w),
-                          height: 13.h,
-                          width: 100.w,
-                          decoration: BoxDecoration(
-                              color: Color.fromARGB(255, 243, 245, 144),
-                              borderRadius: BorderRadius.circular(10)),
-                          child: Column(
-                            children: [
-                              Row(
+                  () => controller.isLoading.value == true
+                      ? Center(
+                          child: CircularProgressIndicator(),
+                        )
+                      : controller.cemeteryLot.length == 0
+                          ? Center(
+                              child: Column(
                                 children: [
-                                  Text(
-                                    "Lot no. ",
-                                    style: TextStyle(fontSize: 10.sp),
+                                  SizedBox(
+                                    height: 10.h,
+                                  ),
+                                  Container(
+                                    height: 20.h,
+                                    width: 100.w,
+                                    child: Image.asset(
+                                        'assets/images/gravestone.png'),
+                                  ),
+                                  SizedBox(
+                                    height: 2.h,
                                   ),
                                   Text(
-                                    controller.cemeteryLot[index].lotId,
+                                    "Oops!",
                                     style: TextStyle(
-                                        fontSize: 12.sp,
-                                        fontWeight: FontWeight.w600),
-                                  )
+                                        fontSize: 17.sp,
+                                        letterSpacing: 2,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  Text(
+                                    "Sorry no available data",
+                                    style: TextStyle(
+                                        fontSize: 14.sp,
+                                        fontWeight: FontWeight.w400),
+                                  ),
                                 ],
                               ),
-                              Row(
-                                children: [
-                                  Text(
-                                    "Price: ",
-                                    style: TextStyle(fontSize: 10.sp),
+                            )
+                          : ListView.builder(
+                              itemCount: controller.cemeteryLot.length,
+                              itemBuilder: (BuildContext context, int index) {
+                                return Padding(
+                                  padding: EdgeInsets.only(
+                                      left: 5.w, right: 5.w, bottom: 2.h),
+                                  child: Container(
+                                    padding:
+                                        EdgeInsets.only(left: 2.w, top: 2.w),
+                                    height: 13.h,
+                                    width: 100.w,
+                                    decoration: BoxDecoration(
+                                        color:
+                                            Color.fromARGB(255, 243, 245, 144),
+                                        borderRadius:
+                                            BorderRadius.circular(10)),
+                                    child: Column(
+                                      children: [
+                                        Row(
+                                          children: [
+                                            Text(
+                                              "Lot no. ",
+                                              style: TextStyle(fontSize: 10.sp),
+                                            ),
+                                            Text(
+                                              controller
+                                                  .cemeteryLot[index].lotId,
+                                              style: TextStyle(
+                                                  fontSize: 12.sp,
+                                                  fontWeight: FontWeight.w600),
+                                            )
+                                          ],
+                                        ),
+                                        Row(
+                                          children: [
+                                            Text(
+                                              "Price: ",
+                                              style: TextStyle(fontSize: 10.sp),
+                                            ),
+                                            Text(
+                                              "P " +
+                                                  controller.cemeteryLot[index]
+                                                      .lotPrice,
+                                              style: TextStyle(
+                                                  fontSize: 10.sp,
+                                                  fontWeight: FontWeight.w500),
+                                            )
+                                          ],
+                                        ),
+                                        Row(
+                                          children: [
+                                            Text(
+                                              "Status: ",
+                                              style: TextStyle(fontSize: 10.sp),
+                                            ),
+                                            Text(
+                                              controller.cemeteryLot[index]
+                                                          .status ==
+                                                      "1"
+                                                  ? "Vacant"
+                                                  : controller
+                                                              .cemeteryLot[
+                                                                  index]
+                                                              .status ==
+                                                          "2"
+                                                      ? "Occupied"
+                                                      : "Reserved",
+                                              style: TextStyle(
+                                                  color: controller
+                                                              .cemeteryLot[
+                                                                  index]
+                                                              .status ==
+                                                          "1"
+                                                      ? Color.fromARGB(
+                                                          255, 99, 182, 4)
+                                                      : controller
+                                                                  .cemeteryLot[
+                                                                      index]
+                                                                  .status ==
+                                                              "2"
+                                                          ? Color.fromARGB(
+                                                              255, 87, 88, 86)
+                                                          : Color.fromARGB(
+                                                              255, 204, 20, 7),
+                                                  fontSize: 10.sp,
+                                                  fontWeight:
+                                                      FontWeight.normal),
+                                            )
+                                          ],
+                                        ),
+                                        Row(
+                                          children: [
+                                            Text(
+                                              "Description: ",
+                                              style: TextStyle(fontSize: 10.sp),
+                                            ),
+                                            Text(
+                                              controller.cemeteryLot[index]
+                                                  .lotDescription,
+                                              style: TextStyle(
+                                                  fontSize: 10.sp,
+                                                  fontWeight:
+                                                      FontWeight.normal),
+                                            )
+                                          ],
+                                        )
+                                      ],
+                                    ),
                                   ),
-                                  Text(
-                                    "P " +
-                                        controller.cemeteryLot[index].lotPrice,
-                                    style: TextStyle(
-                                        fontSize: 10.sp,
-                                        fontWeight: FontWeight.w500),
-                                  )
-                                ],
-                              ),
-                              Row(
-                                children: [
-                                  Text(
-                                    "Status: ",
-                                    style: TextStyle(fontSize: 10.sp),
-                                  ),
-                                  Text(
-                                    controller.cemeteryLot[index].status == "1"
-                                        ? "Vacant"
-                                        : controller.cemeteryLot[index]
-                                                    .status ==
-                                                "2"
-                                            ? "Occupied"
-                                            : "Reserved",
-                                    style: TextStyle(
-                                        color: controller.cemeteryLot[index]
-                                                    .status ==
-                                                "1"
-                                            ? Color.fromARGB(255, 99, 182, 4)
-                                            : controller.cemeteryLot[index]
-                                                        .status ==
-                                                    "2"
-                                                ? Color.fromARGB(
-                                                    255, 87, 88, 86)
-                                                : Color.fromARGB(
-                                                    255, 204, 20, 7),
-                                        fontSize: 10.sp,
-                                        fontWeight: FontWeight.normal),
-                                  )
-                                ],
-                              ),
-                              Row(
-                                children: [
-                                  Text(
-                                    "Description: ",
-                                    style: TextStyle(fontSize: 10.sp),
-                                  ),
-                                  Text(
-                                    controller
-                                        .cemeteryLot[index].lotDescription,
-                                    style: TextStyle(
-                                        fontSize: 10.sp,
-                                        fontWeight: FontWeight.normal),
-                                  )
-                                ],
-                              )
-                            ],
-                          ),
-                        ),
-                      );
-                    },
-                  ),
+                                );
+                              },
+                            ),
                 ),
               ),
             )

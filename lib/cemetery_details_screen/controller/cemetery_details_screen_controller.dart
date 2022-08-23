@@ -18,6 +18,7 @@ class CemeteryDetailsController extends GetxController {
   RxString cemeteryName = "".obs;
   RxString cemeteryAddress = "".obs;
   RxString cemeteryContactNumber = "".obs;
+  RxBool isLoading = true.obs;
 
   RxList<Marker> cemetery_markers = <Marker>[].obs;
   @override
@@ -57,6 +58,7 @@ class CemeteryDetailsController extends GetxController {
               title: cemeteryName + " Lot" + lotList[i].lotId,
               snippet: lotList[i].lotDescription)));
     }
+    isLoading(false);
   }
 
   Future<void> goToTheLocation(

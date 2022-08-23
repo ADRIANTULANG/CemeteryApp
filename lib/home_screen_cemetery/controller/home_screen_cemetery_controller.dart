@@ -6,6 +6,7 @@ import '../model/homes_screen_cemetery_model.dart';
 
 class HomeScreenCemeteryController extends GetxController {
   RxList<CemeteryLot> cemeteryLot = <CemeteryLot>[].obs;
+  RxBool isLoading = true.obs;
 
   @override
   void onInit() {
@@ -21,5 +22,6 @@ class HomeScreenCemeteryController extends GetxController {
   getCemeteryLot() async {
     cemeteryLot.assignAll(await HomescreenCemeteryApi.getCemeteryLot(
         cemeteryID: Get.find<StorageServices>().storage.read("cementeryId")));
+    isLoading(false);
   }
 }

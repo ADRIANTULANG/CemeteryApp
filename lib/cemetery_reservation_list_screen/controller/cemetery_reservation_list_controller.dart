@@ -10,6 +10,8 @@ import '../model/cemetery_reservation_list_model.dart';
 class CemeteryReservationListController extends GetxController {
   RxList<CemeteryReservationListModel> reservationList =
       <CemeteryReservationListModel>[].obs;
+
+  RxBool isLoading = true.obs;
   @override
   void onInit() {
     getReservations();
@@ -25,6 +27,7 @@ class CemeteryReservationListController extends GetxController {
   getReservations() async {
     reservationList.assignAll(await CemeteryReservationListApi.getReservations(
         cemeteryID: Get.find<StorageServices>().storage.read("cementeryId")));
+    isLoading(false);
   }
 
   approvedReservation({

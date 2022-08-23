@@ -24,11 +24,13 @@ class HomeScreenController extends GetxController {
 
   RxList<Marker> markers = <Marker>[].obs;
 
+  RxBool isLoading = true.obs;
+
   @override
   void onInit() async {
     await getCemetery();
-    getDeceased();
-
+    await getDeceased();
+    isLoading(false);
     super.onInit();
   }
 
