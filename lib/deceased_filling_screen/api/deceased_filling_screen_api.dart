@@ -98,16 +98,16 @@ class DeceasedFillingApi {
   static Future<bool> createDeceasedDocuments({
     required String cd_image,
     required String cd_description,
-    required String cementery_id,
+    required String deceased_id,
   }) async {
     try {
       var response = await client.post(
         Uri.parse(
             '${AppEndpoint.endPointDomain}/create-deceased-documents.php'),
         body: {
-          "cd_image": cd_image.toString(),
-          "cd_description": cd_description.toString(),
-          "cementery_id": cementery_id.toString(),
+          "dcs_image": cd_image.toString(),
+          "dcs_description": cd_description.toString(),
+          "deceased_id": deceased_id.toString(),
         },
       );
       print(response.body);

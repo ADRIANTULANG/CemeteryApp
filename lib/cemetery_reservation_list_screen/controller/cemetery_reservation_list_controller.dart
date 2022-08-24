@@ -11,6 +11,10 @@ class CemeteryReservationListController extends GetxController {
   RxList<CemeteryReservationListModel> reservationList =
       <CemeteryReservationListModel>[].obs;
 
+  RxList<DeceasedDocuments> deceasedDocuments = <DeceasedDocuments>[].obs;
+
+  CemeteryReservationListModel? selectedReservation;
+
   RxBool isLoading = true.obs;
   @override
   void onInit() {
@@ -28,6 +32,13 @@ class CemeteryReservationListController extends GetxController {
     reservationList.assignAll(await CemeteryReservationListApi.getReservations(
         cemeteryID: Get.find<StorageServices>().storage.read("cementeryId")));
     isLoading(false);
+  }
+
+  getDeceasedDocuments({required String deceasedID}) async {
+    deceasedDocuments.clear();
+    deceasedDocuments.assignAll(
+        await CemeteryReservationListApi.getDeceasedDocuments(
+            decseasedID: deceasedID));
   }
 
   approvedReservation({

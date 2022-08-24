@@ -51,6 +51,11 @@ class CemeteryRegistrationController extends GetxController {
   }
 
   XFile? image;
+  // RxList<ImageModel> listOfImageDeatchCertificate = <ImageModel>[].obs;
+  // RxList<ImageModel> listOfImageB= <ImageModel>[].obs;
+  //   RxList<ImageModel> listOfImageDeatchCertificate = <ImageModel>[].obs;
+  //     RxList<ImageModel> listOfImageDeatchCertificate = <ImageModel>[].obs;
+
   RxList<ImageModel> listOfImage = <ImageModel>[].obs;
 
   RxString imagepath = "".obs;
@@ -74,8 +79,10 @@ class CemeteryRegistrationController extends GetxController {
     XFile? imageSelected = await picker.pickImage(source: ImageSource.gallery);
     if (imageSelected != null) {
       String imagePath = imageSelected.path;
-      ImageModel imageModel =
-          ImageModel(imagePath: imagePath, imageFile: imageSelected);
+      ImageModel imageModel = ImageModel(
+          imagePath: imagePath,
+          imageFile: imageSelected,
+          imageDescription: "Business Permit");
       listOfImage.add(imageModel);
     }
   }
@@ -84,8 +91,10 @@ class CemeteryRegistrationController extends GetxController {
     XFile? imageSelected = await picker.pickImage(source: ImageSource.camera);
     if (imageSelected != null) {
       String imagePath = imageSelected.path;
-      ImageModel imageModel =
-          ImageModel(imagePath: imagePath, imageFile: imageSelected);
+      ImageModel imageModel = ImageModel(
+          imagePath: imagePath,
+          imageFile: imageSelected,
+          imageDescription: "Business Permit");
       listOfImage.add(imageModel);
     }
   }
@@ -220,7 +229,7 @@ class CemeteryRegistrationController extends GetxController {
           filepath: listOfImage[i].imageFile!.path);
       await CemeteryRegistrationApi.cemeteryDocuments(
           cemeteryImage: listOfImage[i].imageFile!.name,
-          cemeteryDescription: "Document",
+          cemeteryDescription: listOfImage[i].imageDescription,
           cemeteryID: cemeteryID);
     }
     Get.offAll(LoginScreen());

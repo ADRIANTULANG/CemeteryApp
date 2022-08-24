@@ -89,4 +89,8 @@ class StorageServices extends GetxController {
     storage.remove("cmAddress");
     storage.remove("cemImage");
   }
+
+  alreadyReadFAQsAndTermsAndServices() {
+    storage.write("isAlreadyDisplay", true);
+  }
 }

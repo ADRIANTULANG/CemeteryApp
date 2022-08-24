@@ -24,6 +24,7 @@ class CemeteryReservationListApi {
       );
 
       if (jsonDecode(response.body)['message'] == "Success") {
+        // print(jsonEncode(jsonDecode(response.body)['data']));
         return cemeteryReservationListModelFromJson(
             jsonEncode(jsonDecode(response.body)['data']));
       } else {
@@ -159,6 +160,57 @@ class CemeteryReservationListApi {
         snackPosition: SnackPosition.BOTTOM,
       );
       return false;
+    }
+  }
+
+//
+
+  static Future<List<DeceasedDocuments>> getDeceasedDocuments({
+    required String decseasedID,
+  }) async {
+    try {
+      var response = await client.post(
+        Uri.parse('${AppEndpoint.endPointDomain}/get-deceased-documents.php'),
+        body: {
+          "dcs_id": decseasedID.toString(),
+        },
+      );
+
+      if (jsonDecode(response.body)['message'] == "Success") {
+        // print(jsonEncode(jsonDecode(response.body)['data']));
+        return deceasedDocumentsFromJson(
+            jsonEncode(jsonDecode(response.body)['data']));
+      } else {
+        return [];
+      }
+    } on TimeoutException catch (_) {
+      Get.snackbar(
+        "Get Deceased Documents Error: Timeout",
+        "Oops, something went wrong. Please try again later.",
+        colorText: Colors.white,
+        backgroundColor: Colors.lightGreen,
+        snackPosition: SnackPosition.BOTTOM,
+      );
+      return [];
+    } on SocketException catch (_) {
+      print(_);
+      Get.snackbar(
+        "Get Deceased Documents Error: Socket",
+        "Oops, something went wrong. Please try again later.",
+        colorText: Colors.white,
+        backgroundColor: Colors.lightGreen,
+        snackPosition: SnackPosition.BOTTOM,
+      );
+      return [];
+    } catch (e) {
+      Get.snackbar(
+        "Get Deceased Documents Error",
+        "Oops, something went wrong. Please try again later.",
+        colorText: Colors.white,
+        backgroundColor: Colors.lightGreen,
+        snackPosition: SnackPosition.BOTTOM,
+      );
+      return [];
     }
   }
 }

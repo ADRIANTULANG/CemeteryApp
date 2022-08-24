@@ -227,7 +227,7 @@ class DeceasedFillingController extends GetxController {
         clientID: Get.find<StorageServices>().storage.read('clientId'));
     if (isInserted != false) {
       isFilingDeceased.value = false;
-      createDeceasedDocuments();
+      createDeceasedDocuments(deceasedID: isInserted);
       Get.back();
       Get.snackbar("Thank you!", "You succesfully created your booking",
           colorText: Colors.white,
@@ -237,7 +237,7 @@ class DeceasedFillingController extends GetxController {
     } else {}
   }
 
-  createDeceasedDocuments() async {
+  createDeceasedDocuments({required String deceasedID}) async {
     for (var i = 0; i < listOfImage.length; i++) {
       await DeceasedFillingApi.uploadImage(
           imagename: listOfImage[i].imageFile!.name,
@@ -245,7 +245,7 @@ class DeceasedFillingController extends GetxController {
       await DeceasedFillingApi.createDeceasedDocuments(
           cd_image: listOfImage[i].imageFile!.name,
           cd_description: "Documents",
-          cementery_id: cemeteryID.value);
+          deceased_id: deceasedID);
     }
   }
 }

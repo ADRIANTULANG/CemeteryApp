@@ -12,18 +12,21 @@ class ImageModel {
   ImageModel({
     required this.imagePath,
     required this.imageFile,
+    required this.imageDescription,
   });
 
   String imagePath;
   XFile? imageFile;
-
+  String imageDescription;
   factory ImageModel.fromJson(Map<String, dynamic> json) => ImageModel(
         imagePath: json["imagePath"],
         imageFile: json["imageFile"],
+        imageDescription: json["imageDescription"],
       );
 
   Map<String, dynamic> toJson() => {
         "imagePath": imagePath,
         "imageFile": imageFile,
+        "imageDescription": imageDescription,
       };
 }
