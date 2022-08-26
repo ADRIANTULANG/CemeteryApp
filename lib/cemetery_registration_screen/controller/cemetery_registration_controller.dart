@@ -51,12 +51,12 @@ class CemeteryRegistrationController extends GetxController {
   }
 
   XFile? image;
-  // RxList<ImageModel> listOfImageDeatchCertificate = <ImageModel>[].obs;
-  // RxList<ImageModel> listOfImageB= <ImageModel>[].obs;
-  //   RxList<ImageModel> listOfImageDeatchCertificate = <ImageModel>[].obs;
-  //     RxList<ImageModel> listOfImageDeatchCertificate = <ImageModel>[].obs;
 
   RxList<ImageModel> listOfImage = <ImageModel>[].obs;
+  RxList<ImageModel> listOfImage_businessPermit = <ImageModel>[].obs;
+  RxList<ImageModel> listOfImage_dti = <ImageModel>[].obs;
+  RxList<ImageModel> listOfImage_certofPhgeps = <ImageModel>[].obs;
+  RxList<ImageModel> listOfImage_bir = <ImageModel>[].obs;
 
   RxString imagepath = "".obs;
 
@@ -75,7 +75,7 @@ class CemeteryRegistrationController extends GetxController {
     imagepath.value = image!.path;
   }
 
-  addImageGallery() async {
+  addImageGallery_bussinesPermit() async {
     XFile? imageSelected = await picker.pickImage(source: ImageSource.gallery);
     if (imageSelected != null) {
       String imagePath = imageSelected.path;
@@ -83,11 +83,11 @@ class CemeteryRegistrationController extends GetxController {
           imagePath: imagePath,
           imageFile: imageSelected,
           imageDescription: "Business Permit");
-      listOfImage.add(imageModel);
+      listOfImage_businessPermit.add(imageModel);
     }
   }
 
-  addImageCamera() async {
+  addImageCamera_bussinesPermit() async {
     XFile? imageSelected = await picker.pickImage(source: ImageSource.camera);
     if (imageSelected != null) {
       String imagePath = imageSelected.path;
@@ -95,7 +95,79 @@ class CemeteryRegistrationController extends GetxController {
           imagePath: imagePath,
           imageFile: imageSelected,
           imageDescription: "Business Permit");
-      listOfImage.add(imageModel);
+      listOfImage_businessPermit.add(imageModel);
+    }
+  }
+
+  addImageGallery_dti() async {
+    XFile? imageSelected = await picker.pickImage(source: ImageSource.gallery);
+    if (imageSelected != null) {
+      String imagePath = imageSelected.path;
+      ImageModel imageModel = ImageModel(
+          imagePath: imagePath,
+          imageFile: imageSelected,
+          imageDescription: "DTI Permit");
+      listOfImage_dti.add(imageModel);
+    }
+  }
+
+  addImageCamera_dti() async {
+    XFile? imageSelected = await picker.pickImage(source: ImageSource.camera);
+    if (imageSelected != null) {
+      String imagePath = imageSelected.path;
+      ImageModel imageModel = ImageModel(
+          imagePath: imagePath,
+          imageFile: imageSelected,
+          imageDescription: "DTI Permit");
+      listOfImage_dti.add(imageModel);
+    }
+  }
+
+  addImageGallery_Certificate_of_Phgeps() async {
+    XFile? imageSelected = await picker.pickImage(source: ImageSource.gallery);
+    if (imageSelected != null) {
+      String imagePath = imageSelected.path;
+      ImageModel imageModel = ImageModel(
+          imagePath: imagePath,
+          imageFile: imageSelected,
+          imageDescription: "Certificate of PHgeps");
+      listOfImage_certofPhgeps.add(imageModel);
+    }
+  }
+
+  addImageCamera_Certificate_of_Phgeps() async {
+    XFile? imageSelected = await picker.pickImage(source: ImageSource.camera);
+    if (imageSelected != null) {
+      String imagePath = imageSelected.path;
+      ImageModel imageModel = ImageModel(
+          imagePath: imagePath,
+          imageFile: imageSelected,
+          imageDescription: "Certificate of PHgeps");
+      listOfImage_certofPhgeps.add(imageModel);
+    }
+  }
+
+  addImageGallery_bir() async {
+    XFile? imageSelected = await picker.pickImage(source: ImageSource.gallery);
+    if (imageSelected != null) {
+      String imagePath = imageSelected.path;
+      ImageModel imageModel = ImageModel(
+          imagePath: imagePath,
+          imageFile: imageSelected,
+          imageDescription: "BIR Permit");
+      listOfImage_bir.add(imageModel);
+    }
+  }
+
+  addImageCamera_bir() async {
+    XFile? imageSelected = await picker.pickImage(source: ImageSource.camera);
+    if (imageSelected != null) {
+      String imagePath = imageSelected.path;
+      ImageModel imageModel = ImageModel(
+          imagePath: imagePath,
+          imageFile: imageSelected,
+          imageDescription: "BIR Permit");
+      listOfImage_bir.add(imageModel);
     }
   }
 

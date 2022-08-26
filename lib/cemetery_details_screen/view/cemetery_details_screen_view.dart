@@ -139,7 +139,7 @@ class CemeteryDetailsView extends GetView<CemeteryDetailsController> {
                                       width: 100.w,
                                       padding: EdgeInsets.only(
                                           left: 2.w, right: 2.w, top: 2.w),
-                                      color: Color.fromARGB(255, 243, 242, 226),
+                                      color: Color.fromARGB(255, 241, 236, 162),
                                       child: Row(
                                         children: [
                                           InkWell(
@@ -224,7 +224,7 @@ class CemeteryDetailsView extends GetView<CemeteryDetailsController> {
                                                     icon: Icon(
                                                       Icons.location_on,
                                                       size: 25.sp,
-                                                      color: Colors.white,
+                                                      color: Colors.red,
                                                     ),
                                                   ),
                                                   IconButton(
@@ -237,7 +237,7 @@ class CemeteryDetailsView extends GetView<CemeteryDetailsController> {
                                                     icon: Icon(
                                                       Icons.call,
                                                       size: 25.sp,
-                                                      color: Colors.white,
+                                                      color: Colors.lightGreen,
                                                     ),
                                                   ),
                                                 ],

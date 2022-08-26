@@ -375,8 +375,8 @@ class HomeScreenView extends GetView<HomeScreenController> {
                                                           },
                                                           icon: Icon(
                                                             Icons.call,
-                                                            color: AppColor
-                                                                .mainColors,
+                                                            color: Colors
+                                                                .lightGreen,
                                                           )),
                                                       SizedBox(
                                                         width: 2.w,
@@ -396,8 +396,7 @@ class HomeScreenView extends GetView<HomeScreenController> {
                                                           },
                                                           icon: Icon(
                                                             Icons.location_on,
-                                                            color: AppColor
-                                                                .mainColors,
+                                                            color: Colors.red,
                                                           ))
                                                     ],
                                                   ),

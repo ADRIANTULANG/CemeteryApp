@@ -440,7 +440,15 @@ class DeceasedFillingView extends GetView<DeceasedFillingController> {
                   ),
                 ),
                 SizedBox(
-                  height: 3.h,
+                  height: 5.h,
+                ),
+                Text(
+                  "Required Documents",
+                  style:
+                      TextStyle(fontWeight: FontWeight.w500, fontSize: 20.sp),
+                ),
+                Divider(
+                  color: Colors.grey,
                 ),
                 Container(
                   padding: EdgeInsets.only(left: 3.w, right: 3.w),
@@ -448,6 +456,7 @@ class DeceasedFillingView extends GetView<DeceasedFillingController> {
                     () => controller.listOfImage.length == 0
                         ? SizedBox()
                         : GridView.builder(
+                            padding: EdgeInsets.only(top: 1.h),
                             shrinkWrap: true,
                             physics: NeverScrollableScrollPhysics(),
                             gridDelegate:
@@ -579,7 +588,9 @@ class DeceasedFillingView extends GetView<DeceasedFillingController> {
                             child: Text(
                               "D O N E",
                               style: TextStyle(
-                                  fontSize: 15.sp, color: Colors.black),
+                                  fontSize: 15.sp,
+                                  fontWeight: FontWeight.w500,
+                                  color: Colors.black),
                             ),
                           ),
                         ),
