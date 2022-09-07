@@ -384,15 +384,21 @@ class HomeScreenView extends GetView<HomeScreenController> {
                                                       IconButton(
                                                           onPressed: () {
                                                             controller.goToTheLocation(
+                                                                cemeteryName:
+                                                                    controller
+                                                                        .cemeteryList[
+                                                                            index]
+                                                                        .name,
                                                                 lat: double.parse(
                                                                     controller
                                                                         .cemeteryList[
                                                                             index]
                                                                         .latitude),
-                                                                long: double.parse(controller
-                                                                    .cemeteryList[
-                                                                        index]
-                                                                    .longitude));
+                                                                long: double.parse(
+                                                                    controller
+                                                                        .cemeteryList[
+                                                                            index]
+                                                                        .longitude));
                                                           },
                                                           icon: Icon(
                                                             Icons.location_on,

@@ -45,8 +45,9 @@ class CemeteryRegistrationGoogleMaps
             () => controller.isLoading.value == false
                 ? InkWell(
                     onTap: () {
-                      // controller.verifiyNumber();
-                      controller.isLoading.value = true;
+                      controller.verifiyNumber(
+                          contactnumber: controller.contanctNo.text);
+                      // controller.isLoading.value = true;
                       // controller.uploadCompanyLogo();
                     },
                     child: Container(

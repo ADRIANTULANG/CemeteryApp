@@ -230,10 +230,10 @@ class CemeteryRegistrationController extends GetxController {
     company_longitude = longitude;
   }
 
-  verifiyNumber() {
+  verifiyNumber({required String contactnumber}) {
     auth.verifyPhoneNumber(
         // phoneNumber: "09367325510",
-        phoneNumber: "+639367325510",
+        phoneNumber: "+63$contactnumber",
         verificationCompleted: (PhoneAuthCredential credential) async {
           await auth.signInWithCredential(credential).then((value) {
             print(value.credential);
