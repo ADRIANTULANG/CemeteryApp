@@ -23,10 +23,13 @@ class HomeScreenController extends GetxController {
   RxList<CemeteryList> cemeteryList = <CemeteryList>[].obs;
 
   RxList<DeceasedModel> deceasedList = <DeceasedModel>[].obs;
+  RxList<DeceasedModel> deceasedList_masterList = <DeceasedModel>[].obs;
 
   RxList<Marker> markers = <Marker>[].obs;
 
   RxBool isLoading = true.obs;
+
+  RxBool isSearching = false.obs;
 
   @override
   void onInit() async {
@@ -59,6 +62,7 @@ class HomeScreenController extends GetxController {
   getDeceased() async {
     var result = await HomeScreenApi.getDeceased();
     deceasedList.assignAll(result);
+    deceasedList_masterList.assignAll(result);
   }
 
   Future<void> goToTheLocation(
@@ -88,43 +92,76 @@ class HomeScreenController extends GetxController {
     await launchUrl(launchUri);
   }
 
-  searchDeceased({required String deceasedName}) async {
-    var lat = 0.0;
-    var long = 0.0;
+  // searchDeceased({required String deceasedName}) async {
+  //   var lat = 0.0;
+  //   var long = 0.0;
 
-    for (var i = 0; i < deceasedList.length; i++) {
-      String fullName = deceasedList[i].dcsFname +
-          " " +
-          deceasedList[i].dcsMname +
-          " " +
-          deceasedList[i].dcsLname;
+  //   for (var i = 0; i < deceasedList.length; i++) {
+  //     String fullName = deceasedList[i].dcsFname +
+  //         " " +
+  //         deceasedList[i].dcsMname +
+  //         " " +
+  //         deceasedList[i].dcsLname;
 
-      if (deceasedName.trim().toLowerCase().toString() ==
-          fullName.trim().toLowerCase().toString()) {
-        lat = double.parse(deceasedList[i].lotLatitude);
-        long = double.parse(deceasedList[i].lotLongitude);
-      }
-    }
-    if (lat == 0.0 && long == 0.0) {
-    } else {
-      markers.add(Marker(
-          markerId: MarkerId("$lat,$long"),
-          position: LatLng(lat, long),
-          icon:
-              BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueViolet),
-          infoWindow: InfoWindow(
-            title: "$deceasedName's location",
-          )));
+  //     if (deceasedName.trim().toLowerCase().toString() ==
+  //         fullName.trim().toLowerCase().toString()) {
+  //       lat = double.parse(deceasedList[i].lotLatitude);
+  //       long = double.parse(deceasedList[i].lotLongitude);
+  //     }
+  //   }
+  //   if (lat == 0.0 && long == 0.0) {
+  //   } else {
+  //     markers.add(Marker(
+  //         markerId: MarkerId("$lat,$long"),
+  //         position: LatLng(lat, long),
+  //         icon:
+  //             BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueViolet),
+  //         infoWindow: InfoWindow(
+  //           title: "$deceasedName's location",
+  //         )));
 
-      await googleMapController!.animateCamera(CameraUpdate.newCameraPosition(
-          CameraPosition(
-              bearing: 192.8334901395799,
-              target: LatLng(lat, long),
-              tilt: 59.440717697143555,
-              zoom: 19.151926040649414)));
-    }
-    print(lat);
-    print(long);
+  //     await googleMapController!.animateCamera(CameraUpdate.newCameraPosition(
+  //         CameraPosition(
+  //             bearing: 192.8334901395799,
+  //             target: LatLng(lat, long),
+  //             tilt: 59.440717697143555,
+  //             zoom: 19.151926040649414)));
+  //   }
+  //   print(lat);
+  //   print(long);
+  //   deceasedTextfield.clear();
+  // }
+
+  gotoDeceasedLocation(
+      {required double lat,
+      required double long,
+      required String deceasedName}) async {
+    markers.clear();
+    markers.add(Marker(
+        markerId: MarkerId("$lat,$long"),
+        position: LatLng(lat, long),
+        icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueViolet),
+        infoWindow: InfoWindow(
+          title: "$deceasedName's location",
+        )));
+
+    googleMapController!.animateCamera(CameraUpdate.newCameraPosition(
+        CameraPosition(
+            bearing: 192.8334901395799,
+            target: LatLng(lat, long),
+            tilt: 59.440717697143555,
+            zoom: 19.151926040649414)));
+    isSearching(false);
+  }
+
+  searchDeceasedNew({required String word}) {
+    deceasedList.assignAll(deceasedList_masterList
+        .where((u) => (u.deceasedFullname
+            .toString()
+            .toLowerCase()
+            .contains(word.toLowerCase())))
+        .toList());
+    isSearching(true);
     deceasedTextfield.clear();
   }
 

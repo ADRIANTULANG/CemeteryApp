@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:cemeteryapp/chat_screen/view/chat_view.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:cemeteryapp/cemetery_details_screen/view/cemetery_details_screen_view.dart';
 import 'package:cemeteryapp/endPoints.dart';
@@ -172,15 +173,28 @@ class HomeScreenView extends GetView<HomeScreenController> {
                                           .trim()
                                           .toString() ==
                                       "") {
+                                    controller.deceasedList.assignAll(
+                                        controller.deceasedList_masterList);
                                   } else {
-                                    await controller.searchDeceased(
-                                        deceasedName:
+                                    await controller.searchDeceasedNew(
+                                        word:
                                             controller.deceasedTextfield.text);
                                   }
                                   FocusScope.of(context).unfocus();
                                 });
                               },
                               decoration: InputDecoration(
+                                suffixIcon: InkWell(
+                                  onTap: () {
+                                    controller.isSearching.value = false;
+                                    controller.deceasedList.assignAll(
+                                        controller.deceasedList_masterList);
+                                  },
+                                  child: Icon(
+                                    Icons.clear,
+                                    color: Colors.red,
+                                  ),
+                                ),
                                 filled: true,
                                 fillColor: Colors.white,
                                 border: OutlineInputBorder(
@@ -212,212 +226,328 @@ class HomeScreenView extends GetView<HomeScreenController> {
                                     }),
                               ),
                             )),
-                        Container(
-                          height: 25.h,
-                          width: 100.w,
-                          child: Obx(
-                            () => ListView.builder(
-                              scrollDirection: Axis.horizontal,
-                              itemCount: controller.cemeteryList.length,
-                              itemBuilder: (BuildContext context, int index) {
-                                return Padding(
-                                  padding: EdgeInsets.only(
-                                      right: 2.w, left: 2.w, bottom: 3.h),
-                                  child: InkWell(
-                                    onTap: () {
-                                      Get.to(() => CemeteryDetailsView(),
-                                          arguments: {
-                                            "cemeteryID": controller
-                                                .cemeteryList[index].id,
-                                            "storeLatitude": double.parse(
-                                                controller.cemeteryList[index]
-                                                    .latitude),
-                                            "storeLongitude": double.parse(
-                                                controller.cemeteryList[index]
-                                                    .longitude),
-                                            "cemeteryName": controller
-                                                .cemeteryList[index].name,
-                                            "cemeteryContactNumber": controller
-                                                .cemeteryList[index]
-                                                .contactNumber
-                                                .toString(),
-                                            "cemeteryAddress": controller
-                                                .cemeteryList[index].address
-                                          });
-                                    },
-                                    child: Container(
-                                      height: 23.h,
-                                      width: 80.w,
-                                      decoration: BoxDecoration(
-                                          color: Colors.white,
-                                          borderRadius:
-                                              BorderRadius.circular(10),
-                                          border:
-                                              Border.all(color: Colors.grey)),
-                                      child: Row(
-                                        children: [
-                                          SizedBox(
-                                            width: 1.5.w,
-                                          ),
-                                          controller.cemeteryList[index]
-                                                      .image !=
-                                                  ""
-                                              ? Container(
-                                                  height: 20.h,
-                                                  width: 35.w,
-                                                  decoration: BoxDecoration(
-                                                      borderRadius:
-                                                          BorderRadius.only(
-                                                        topLeft:
-                                                            Radius.circular(5),
-                                                        bottomLeft:
-                                                            Radius.circular(5),
-                                                      ),
-                                                      image: DecorationImage(
-                                                          fit: BoxFit.cover,
-                                                          image: NetworkImage(
-                                                              "${AppEndpoint.imageEndpoint}/${controller.cemeteryList[index].image}")),
-                                                      border: Border.all(
-                                                          color: Colors.black)),
-                                                )
-                                              : Container(
-                                                  height: 20.h,
-                                                  width: 35.w,
-                                                  decoration: BoxDecoration(
-                                                      borderRadius:
-                                                          BorderRadius.only(
-                                                        topLeft:
-                                                            Radius.circular(5),
-                                                        bottomLeft:
-                                                            Radius.circular(5),
-                                                      ),
-                                                      image: DecorationImage(
-                                                          fit: BoxFit.cover,
-                                                          image: NetworkImage(
-                                                              "${AppEndpoint.imageEndpoint}/logo-grave.png")),
-                                                      border: Border.all(
-                                                          color: Colors.black)),
-                                                ),
-                                          SizedBox(
-                                            width: 1.5.w,
-                                          ),
-                                          Container(
-                                            height: 20.h,
-                                            width: 40.w,
-                                            child: Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                Text(
-                                                  controller
-                                                      .cemeteryList[index].name,
-                                                  style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.w600,
-                                                      fontSize: 13.sp),
-                                                ),
-                                                SizedBox(
-                                                  height: .5.h,
-                                                ),
-                                                Text(
-                                                  controller.cemeteryList[index]
-                                                      .address,
-                                                  style: TextStyle(
-                                                      color: Colors.grey[500],
-                                                      fontWeight:
-                                                          FontWeight.w400,
-                                                      fontSize: 8.sp),
-                                                ),
-                                                Text(
-                                                  controller.cemeteryList[index]
-                                                      .contactNumber
-                                                      .toString(),
-                                                  style: TextStyle(
-                                                      color: Colors.grey[500],
-                                                      fontWeight:
-                                                          FontWeight.w400,
-                                                      fontSize: 8.sp),
-                                                ),
-                                                SizedBox(
-                                                  height: .5.h,
-                                                ),
-                                                Expanded(
-                                                  child: Text(
-                                                    controller
-                                                        .cemeteryList[index]
-                                                        .companyDescription
-                                                        .toString(),
-                                                    maxLines: 3,
-                                                    style: TextStyle(
-                                                        overflow: TextOverflow
-                                                            .ellipsis,
-                                                        color: Colors.grey[500],
-                                                        fontWeight:
-                                                            FontWeight.w400,
-                                                        fontSize: 8.sp),
-                                                  ),
-                                                ),
-                                                Container(
-                                                  height: 6.h,
-                                                  width: 40.w,
-                                                  child: Row(
-                                                    // mainAxisAlignment:
-                                                    //     MainAxisAlignment.spaceEvenly,
-                                                    children: [
-                                                      IconButton(
-                                                          onPressed: () {
-                                                            controller.makePhoneCall(
-                                                                phoneNumber: controller
-                                                                    .cemeteryList[
-                                                                        index]
-                                                                    .contactNumber
-                                                                    .toString());
-                                                          },
-                                                          icon: Icon(
-                                                            Icons.call,
-                                                            color: Colors
-                                                                .lightGreen,
-                                                          )),
-                                                      SizedBox(
-                                                        width: 2.w,
-                                                      ),
-                                                      IconButton(
-                                                          onPressed: () {
-                                                            controller.goToTheLocation(
-                                                                cemeteryName:
-                                                                    controller
-                                                                        .cemeteryList[
-                                                                            index]
-                                                                        .name,
-                                                                lat: double.parse(
-                                                                    controller
-                                                                        .cemeteryList[
-                                                                            index]
-                                                                        .latitude),
-                                                                long: double.parse(
-                                                                    controller
-                                                                        .cemeteryList[
-                                                                            index]
-                                                                        .longitude));
-                                                          },
-                                                          icon: Icon(
-                                                            Icons.location_on,
-                                                            color: Colors.red,
-                                                          ))
-                                                    ],
-                                                  ),
-                                                )
-                                              ],
+                        Obx(
+                          () => controller.isSearching.value == true
+                              ? Container(
+                                  height: 40.h,
+                                  width: 100.w,
+                                  decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.only(
+                                          topLeft: Radius.circular(10),
+                                          topRight: Radius.circular(10))),
+                                  child: Obx(
+                                    () => ListView.builder(
+                                      itemCount: controller.deceasedList.length,
+                                      itemBuilder:
+                                          (BuildContext context, int index) {
+                                        return Padding(
+                                          padding: EdgeInsets.only(
+                                              top: 2.h, left: 3.w, right: 3.w),
+                                          child: InkWell(
+                                            onTap: () {
+                                              controller.gotoDeceasedLocation(
+                                                  lat: double.parse(controller
+                                                      .deceasedList[index]
+                                                      .lotLatitude),
+                                                  long: double.parse(controller
+                                                      .deceasedList[index]
+                                                      .lotLongitude),
+                                                  deceasedName: controller
+                                                      .deceasedList[index]
+                                                      .deceasedFullname);
+                                            },
+                                            child: Container(
+                                              width: 100.w,
+                                              padding: EdgeInsets.only(
+                                                  top: 2.h,
+                                                  bottom: 2.h,
+                                                  left: 2.w),
+                                              decoration: BoxDecoration(
+                                                  color: AppColor.mainColors),
+                                              child: Text(
+                                                controller
+                                                    .deceasedList[index]
+                                                    .deceasedFullname
+                                                    .capitalizeFirst
+                                                    .toString(),
+                                                style: TextStyle(
+                                                    fontWeight: FontWeight.w400,
+                                                    fontSize: 12.sp,
+                                                    letterSpacing: 2),
+                                              ),
                                             ),
                                           ),
-                                        ],
-                                      ),
+                                        );
+                                      },
                                     ),
                                   ),
-                                );
-                              },
-                            ),
-                          ),
+                                )
+                              : Container(
+                                  height: 25.h,
+                                  width: 100.w,
+                                  child: Obx(
+                                    () => ListView.builder(
+                                      scrollDirection: Axis.horizontal,
+                                      itemCount: controller.cemeteryList.length,
+                                      itemBuilder:
+                                          (BuildContext context, int index) {
+                                        return Padding(
+                                          padding: EdgeInsets.only(
+                                              right: 2.w,
+                                              left: 2.w,
+                                              bottom: 3.h),
+                                          child: InkWell(
+                                            onTap: () {
+                                              Get.to(
+                                                  () => CemeteryDetailsView(),
+                                                  arguments: {
+                                                    "cemeteryID": controller
+                                                        .cemeteryList[index].id,
+                                                    "storeLatitude":
+                                                        double.parse(controller
+                                                            .cemeteryList[index]
+                                                            .latitude),
+                                                    "storeLongitude":
+                                                        double.parse(controller
+                                                            .cemeteryList[index]
+                                                            .longitude),
+                                                    "cemeteryName": controller
+                                                        .cemeteryList[index]
+                                                        .name,
+                                                    "cemeteryContactNumber":
+                                                        controller
+                                                            .cemeteryList[index]
+                                                            .contactNumber
+                                                            .toString(),
+                                                    "cemeteryAddress":
+                                                        controller
+                                                            .cemeteryList[index]
+                                                            .address
+                                                  });
+                                            },
+                                            child: Container(
+                                              height: 23.h,
+                                              width: 80.w,
+                                              decoration: BoxDecoration(
+                                                  color: Colors.white,
+                                                  borderRadius:
+                                                      BorderRadius.circular(10),
+                                                  border: Border.all(
+                                                      color: Colors.grey)),
+                                              child: Row(
+                                                children: [
+                                                  SizedBox(
+                                                    width: 1.5.w,
+                                                  ),
+                                                  controller.cemeteryList[index]
+                                                              .image !=
+                                                          ""
+                                                      ? Container(
+                                                          height: 20.h,
+                                                          width: 35.w,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .only(
+                                                                    topLeft: Radius
+                                                                        .circular(
+                                                                            5),
+                                                                    bottomLeft:
+                                                                        Radius.circular(
+                                                                            5),
+                                                                  ),
+                                                                  image: DecorationImage(
+                                                                      fit: BoxFit
+                                                                          .cover,
+                                                                      image: NetworkImage(
+                                                                          "${AppEndpoint.imageEndpoint}/${controller.cemeteryList[index].image}")),
+                                                                  border: Border.all(
+                                                                      color: Colors
+                                                                          .black)),
+                                                        )
+                                                      : Container(
+                                                          height: 20.h,
+                                                          width: 35.w,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .only(
+                                                                    topLeft: Radius
+                                                                        .circular(
+                                                                            5),
+                                                                    bottomLeft:
+                                                                        Radius.circular(
+                                                                            5),
+                                                                  ),
+                                                                  image: DecorationImage(
+                                                                      fit: BoxFit
+                                                                          .cover,
+                                                                      image: NetworkImage(
+                                                                          "${AppEndpoint.imageEndpoint}/logo-grave.png")),
+                                                                  border: Border.all(
+                                                                      color: Colors
+                                                                          .black)),
+                                                        ),
+                                                  SizedBox(
+                                                    width: 1.5.w,
+                                                  ),
+                                                  Container(
+                                                    height: 20.h,
+                                                    width: 40.w,
+                                                    child: Column(
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
+                                                      children: [
+                                                        Text(
+                                                          controller
+                                                              .cemeteryList[
+                                                                  index]
+                                                              .name,
+                                                          style: TextStyle(
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w600,
+                                                              fontSize: 13.sp),
+                                                        ),
+                                                        SizedBox(
+                                                          height: .5.h,
+                                                        ),
+                                                        Text(
+                                                          controller
+                                                              .cemeteryList[
+                                                                  index]
+                                                              .address,
+                                                          style: TextStyle(
+                                                              color: Colors
+                                                                  .grey[500],
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w400,
+                                                              fontSize: 8.sp),
+                                                        ),
+                                                        Text(
+                                                          controller
+                                                              .cemeteryList[
+                                                                  index]
+                                                              .contactNumber
+                                                              .toString(),
+                                                          style: TextStyle(
+                                                              color: Colors
+                                                                  .grey[500],
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w400,
+                                                              fontSize: 8.sp),
+                                                        ),
+                                                        SizedBox(
+                                                          height: .5.h,
+                                                        ),
+                                                        Expanded(
+                                                          child: Text(
+                                                            controller
+                                                                .cemeteryList[
+                                                                    index]
+                                                                .companyDescription
+                                                                .toString(),
+                                                            maxLines: 3,
+                                                            style: TextStyle(
+                                                                overflow:
+                                                                    TextOverflow
+                                                                        .ellipsis,
+                                                                color: Colors
+                                                                    .grey[500],
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w400,
+                                                                fontSize: 8.sp),
+                                                          ),
+                                                        ),
+                                                        Container(
+                                                          height: 6.h,
+                                                          width: 40.w,
+                                                          child: Row(
+                                                            // mainAxisAlignment:
+                                                            //     MainAxisAlignment.spaceEvenly,
+                                                            children: [
+                                                              IconButton(
+                                                                  onPressed:
+                                                                      () {
+                                                                    controller.makePhoneCall(
+                                                                        phoneNumber: controller
+                                                                            .cemeteryList[index]
+                                                                            .contactNumber
+                                                                            .toString());
+                                                                  },
+                                                                  icon: Icon(
+                                                                    Icons.call,
+                                                                    color: Colors
+                                                                        .lightGreen,
+                                                                  )),
+
+                                                              IconButton(
+                                                                  onPressed:
+                                                                      () {
+                                                                    controller.goToTheLocation(
+                                                                        cemeteryName: controller
+                                                                            .cemeteryList[
+                                                                                index]
+                                                                            .name,
+                                                                        lat: double.parse(controller
+                                                                            .cemeteryList[
+                                                                                index]
+                                                                            .latitude),
+                                                                        long: double.parse(controller
+                                                                            .cemeteryList[index]
+                                                                            .longitude));
+                                                                  },
+                                                                  icon: Icon(
+                                                                    Icons
+                                                                        .location_on,
+                                                                    color: Colors
+                                                                        .red,
+                                                                  )),
+
+                                                              IconButton(
+                                                                  onPressed:
+                                                                      () {
+                                                                    Get.to(
+                                                                        () =>
+                                                                            ChatScreenView(),
+                                                                        arguments: {
+                                                                          "cemeteryID": controller
+                                                                              .cemeteryList[index]
+                                                                              .id,
+                                                                          "clientID": Get.find<StorageServices>()
+                                                                              .storage
+                                                                              .read('clientId'),
+                                                                        });
+                                                                  },
+                                                                  icon: Icon(
+                                                                    Icons
+                                                                        .message,
+                                                                    color: Colors
+                                                                        .lightGreenAccent,
+                                                                  ))
+                                                              //
+                                                            ],
+                                                          ),
+                                                        )
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                        );
+                                      },
+                                    ),
+                                  ),
+                                ),
                         )
                       ],
                     ),

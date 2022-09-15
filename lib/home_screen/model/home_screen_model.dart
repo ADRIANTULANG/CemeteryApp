@@ -70,6 +70,7 @@ class DeceasedModel {
     required this.lotLatitude,
     required this.lotLongitude,
     required this.cementeryId,
+    required this.deceasedFullname,
   });
 
   String dcsFname;
@@ -78,6 +79,7 @@ class DeceasedModel {
   String lotLatitude;
   String lotLongitude;
   String cementeryId;
+  String deceasedFullname;
 
   factory DeceasedModel.fromJson(Map<String, dynamic> json) => DeceasedModel(
         dcsFname: json["dcs_fname"],
@@ -86,9 +88,15 @@ class DeceasedModel {
         lotLatitude: json["lot_latitude"],
         lotLongitude: json["lot_longitude"],
         cementeryId: json["cementery_id"],
+        deceasedFullname: json["dcs_fname"].toString() +
+            " " +
+            json["dcs_mname"].toString() +
+            " " +
+            json["dcs_lname"].toString(),
       );
 
   Map<String, dynamic> toJson() => {
+        "deceasedFullname": deceasedFullname,
         "dcs_fname": dcsFname,
         "dcs_mname": dcsMname,
         "dcs_lname": dcsLname,

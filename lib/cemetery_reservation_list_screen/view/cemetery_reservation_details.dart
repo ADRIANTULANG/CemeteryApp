@@ -2,6 +2,8 @@ import 'package:cemeteryapp/endPoints.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import '../../chat_screen/view/chat_view.dart';
+import '../../storage_services.dart';
 import '../controller/cemetery_reservation_list_controller.dart';
 import 'package:sizer/sizer.dart';
 
@@ -13,10 +15,24 @@ class CemeteryReservationDetails
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        padding: EdgeInsets.only(left: 5.w, right: 5.w, top: 10.h),
+        padding: EdgeInsets.only(left: 5.w, right: 5.w, top: 5.h),
         child: SingleChildScrollView(
           child: Column(
             children: [
+              IconButton(
+                  onPressed: () {
+                    Get.to(() => ChatScreenView(), arguments: {
+                      "cemeteryID": Get.find<StorageServices>()
+                          .storage
+                          .read('cementeryId'),
+                      "clientID": controller.selectedReservation!.res_filedby,
+                    });
+                    print("here");
+                  },
+                  icon: Icon(Icons.message_rounded)),
+              SizedBox(
+                height: 2.h,
+              ),
               Text(
                 "Reservation Details",
                 textAlign: TextAlign.center,

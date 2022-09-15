@@ -28,6 +28,7 @@ class CemeteryReservationListModel {
     required this.dcsAddress,
     required this.dcsDoBirth,
     required this.dcsDoDeath,
+    required this.res_filedby,
   });
 
   String resId;
@@ -47,6 +48,7 @@ class CemeteryReservationListModel {
   String dcsAddress;
   DateTime dcsDoBirth;
   DateTime dcsDoDeath;
+  String res_filedby;
 
   factory CemeteryReservationListModel.fromJson(Map<String, dynamic> json) =>
       CemeteryReservationListModel(
@@ -65,6 +67,7 @@ class CemeteryReservationListModel {
         dcsAge: json["dcs_age"],
         dcsGender: json["dcs_gender"],
         dcsAddress: json["dcs_address"],
+        res_filedby: json["res_filedby"],
         dcsDoBirth: DateTime.parse(json["dcs_do_birth"]),
         dcsDoDeath: DateTime.parse(json["dcs_do_death"]),
       );
@@ -86,6 +89,7 @@ class CemeteryReservationListModel {
         "dcs_age": dcsAge,
         "dcs_gender": dcsGender,
         "dcs_address": dcsAddress,
+        "res_filedby": res_filedby,
         "dcs_do_birth":
             "${dcsDoBirth.year.toString().padLeft(4, '0')}-${dcsDoBirth.month.toString().padLeft(2, '0')}-${dcsDoBirth.day.toString().padLeft(2, '0')}",
         "dcs_do_death":
