@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import '../../chat_screen/view/chat_view.dart';
+import '../../color_class.dart';
 import '../../storage_services.dart';
 import '../controller/cemetery_reservation_list_controller.dart';
 import 'package:sizer/sizer.dart';
@@ -19,17 +20,17 @@ class CemeteryReservationDetails
         child: SingleChildScrollView(
           child: Column(
             children: [
-              IconButton(
-                  onPressed: () {
-                    Get.to(() => ChatScreenView(), arguments: {
-                      "cemeteryID": Get.find<StorageServices>()
-                          .storage
-                          .read('cementeryId'),
-                      "clientID": controller.selectedReservation!.res_filedby,
-                    });
-                    print("here");
-                  },
-                  icon: Icon(Icons.message_rounded)),
+              // IconButton(
+              //     onPressed: () {
+              //       Get.to(() => ChatScreenView(), arguments: {
+              //         "cemeteryID": Get.find<StorageServices>()
+              //             .storage
+              //             .read('cementeryId'),
+              //         "clientID": controller.selectedReservation!.res_filedby,
+              //       });
+              //       print("here");
+              //     },
+              //     icon: Icon(Icons.message_rounded)),
               SizedBox(
                 height: 2.h,
               ),
@@ -413,7 +414,43 @@ class CemeteryReservationDetails
                     },
                   ),
                 ),
-              )
+              ),
+              SizedBox(
+                height: 2.h,
+              ),
+              Padding(
+                padding: EdgeInsets.only(left: 5.w, right: 5.w),
+                child: InkWell(
+                  onTap: () {
+                    Get.to(() => ChatScreenView(), arguments: {
+                      "cemeteryID": Get.find<StorageServices>()
+                          .storage
+                          .read('cementeryId'),
+                      "clientID": controller.selectedReservation!.res_filedby,
+                    });
+                  },
+                  child: Container(
+                    height: 8.h,
+                    width: 100.w,
+                    decoration: BoxDecoration(
+                        color: AppColor.mainColors,
+                        borderRadius: BorderRadius.circular(15),
+                        border: Border.all(color: Colors.black54)),
+                    alignment: Alignment.center,
+                    child: Text(
+                      "MESSAGE",
+                      style: TextStyle(
+                        letterSpacing: 4,
+                        fontSize: 20.sp,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 2.h,
+              ),
             ],
           ),
         ),
