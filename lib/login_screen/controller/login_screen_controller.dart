@@ -10,6 +10,7 @@ class LoginController extends GetxController {
   TextEditingController username = TextEditingController();
   TextEditingController password = TextEditingController();
   RxBool isGettingCredentials = false.obs;
+  RxBool isShowpassword = true.obs;
   @override
   void onClose() {
     super.onClose();
