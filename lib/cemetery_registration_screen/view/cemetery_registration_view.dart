@@ -5,7 +5,6 @@ import 'package:sizer/sizer.dart';
 
 import '../../color_class.dart';
 import '../controller/cemetery_registration_controller.dart';
-import 'cemetery_registration_uploadLogo.dart';
 
 class CemeteryRegistrationView extends GetView<CemeteryRegistrationController> {
   const CemeteryRegistrationView({Key? key}) : super(key: key);
@@ -157,7 +156,7 @@ class CemeteryRegistrationView extends GetView<CemeteryRegistrationController> {
                 height: 6.h,
                 width: 100.w,
                 child: TextField(
-                  obscureText: false,
+                  obscureText: true,
                   controller: controller.password,
                   decoration: InputDecoration(
                       border: OutlineInputBorder(
@@ -176,7 +175,7 @@ class CemeteryRegistrationView extends GetView<CemeteryRegistrationController> {
                 height: 6.h,
                 width: 100.w,
                 child: TextField(
-                  obscureText: false,
+                  obscureText: true,
                   controller: controller.confirmpassword,
                   decoration: InputDecoration(
                       border: OutlineInputBorder(
@@ -261,7 +260,7 @@ class CemeteryRegistrationView extends GetView<CemeteryRegistrationController> {
                           snackPosition: SnackPosition.TOP,
                         );
                       } else {
-                        Get.to(() => CemeteryRegistrationUploadLogo());
+                        controller.checkIfEmailAddressExist();
                       }
                     },
                     child: Container(

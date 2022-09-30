@@ -11,6 +11,7 @@ import '../model/cemetery_registration_model.dart';
 import 'package:geocoding/geocoding.dart';
 
 import '../view/cemetery_registration_otp.dart';
+import '../view/cemetery_registration_uploadLogo.dart';
 
 class CemeteryRegistrationController extends GetxController {
   final ImagePicker picker = ImagePicker();
@@ -269,6 +270,14 @@ class CemeteryRegistrationController extends GetxController {
     }
   }
 
+  uploadCompanyLogo() async {
+    bool result = await CemeteryRegistrationApi.uploadImage(
+        imagename: image!.name, filepath: image!.path);
+    if (result == true) {
+      createCemeteryAccount();
+    } else {}
+  }
+
   createCemeteryAccount() async {
     String result = await CemeteryRegistrationApi.createCemeteryAccount(
         companyName: companyName.text,
@@ -284,14 +293,6 @@ class CemeteryRegistrationController extends GetxController {
     } else {
       uploadCompanyDocuments(cemeteryID: result);
     }
-  }
-
-  uploadCompanyLogo() async {
-    bool result = await CemeteryRegistrationApi.uploadImage(
-        imagename: image!.name, filepath: image!.path);
-    if (result == true) {
-      createCemeteryAccount();
-    } else {}
   }
 
   uploadCompanyDocuments({required String cemeteryID}) async {
@@ -312,5 +313,52 @@ class CemeteryRegistrationController extends GetxController {
       backgroundColor: Colors.lightGreen,
       snackPosition: SnackPosition.BOTTOM,
     );
+  }
+
+  checkIfEmailAddressExist() async {
+    var result = await CemeteryRegistrationApi.checkEmail(email: email.text);
+    if (result == false) {
+      Get.snackbar(
+        "Message",
+        "Sorry.. please try again later.",
+        colorText: Colors.white,
+        backgroundColor: Colors.lightGreen,
+        snackPosition: SnackPosition.TOP,
+      );
+    } else if (result > 0) {
+      Get.snackbar(
+        "Message",
+        "Email address already exist!",
+        colorText: Colors.white,
+        backgroundColor: Colors.lightGreen,
+        snackPosition: SnackPosition.TOP,
+      );
+    } else {
+      checkIfusernameExist();
+    }
+  }
+
+  checkIfusernameExist() async {
+    var result =
+        await CemeteryRegistrationApi.checkUsername(username: username.text);
+    if (result == false) {
+      Get.snackbar(
+        "Message",
+        "Sorry.. please try again later.",
+        colorText: Colors.white,
+        backgroundColor: Colors.lightGreen,
+        snackPosition: SnackPosition.TOP,
+      );
+    } else if (result > 0) {
+      Get.snackbar(
+        "Message",
+        "User name already exist!",
+        colorText: Colors.white,
+        backgroundColor: Colors.lightGreen,
+        snackPosition: SnackPosition.TOP,
+      );
+    } else {
+      Get.to(() => CemeteryRegistrationUploadLogo());
+    }
   }
 }

@@ -33,49 +33,59 @@ class LoginController extends GetxController {
         snackPosition: SnackPosition.BOTTOM,
       );
     } else {
-      await Get.find<StorageServices>().saveCredentials(
-        accntId: result[0].accntId,
-        username: result[0].username,
-        password: result[0].password,
-        userId: result[0].userId,
-        usertypeId: result[0].usertypeId,
-        status: result[0].status,
-        code: result[0].code,
-      );
-      if (result[0].usertypeId.toString() == "2") {
-        var cemeteryDetails =
-            await LoginApi.getCemeteryDetails(cemeteryID: result[0].userId);
-        await Get.find<StorageServices>().saveCemeteryDetails(
-            cementeryId: cemeteryDetails[0].cementeryId,
-            cmName: cemeteryDetails[0].cmName,
-            cmLongitude: cemeteryDetails[0].cmLongitude,
-            cmLatitude: cemeteryDetails[0].cmLatitude,
-            cDescription: cemeteryDetails[0].cDescription,
-            cmEmail: cemeteryDetails[0].cmEmail,
-            cmAddress: cemeteryDetails[0].cmAddress,
-            cemImage: cemeteryDetails[0].cemImage);
-        Get.offAll(() => HomescreenCemeteryView());
-      } else if (result[0].usertypeId.toString() == "3") {
-        var clientDetails =
-            await LoginApi.getClientDetails(clientID: result[0].userId);
-        if (clientDetails.length != 0) {
-          await Get.find<StorageServices>().saveClientCredentials(
-            clientId: clientDetails[0].clientId,
-            clientFirstName: clientDetails[0].clientFirstName,
-            clientMiddlename: clientDetails[0].clientMiddlename,
-            clientLastname: clientDetails[0].clientLastname,
-            email: clientDetails[0].email,
-            clientImage: clientDetails[0].clientImage,
+      if (result[0].status == "1") {
+        await Get.find<StorageServices>().saveCredentials(
+          accntId: result[0].accntId,
+          username: result[0].username,
+          password: result[0].password,
+          userId: result[0].userId,
+          usertypeId: result[0].usertypeId,
+          status: result[0].status,
+          code: result[0].code,
+        );
+        if (result[0].usertypeId.toString() == "2") {
+          var cemeteryDetails =
+              await LoginApi.getCemeteryDetails(cemeteryID: result[0].userId);
+          await Get.find<StorageServices>().saveCemeteryDetails(
+              cementeryId: cemeteryDetails[0].cementeryId,
+              cmName: cemeteryDetails[0].cmName,
+              cmLongitude: cemeteryDetails[0].cmLongitude,
+              cmLatitude: cemeteryDetails[0].cmLatitude,
+              cDescription: cemeteryDetails[0].cDescription,
+              cmEmail: cemeteryDetails[0].cmEmail,
+              cmAddress: cemeteryDetails[0].cmAddress,
+              cemImage: cemeteryDetails[0].cemImage);
+          Get.offAll(() => HomescreenCemeteryView());
+        } else if (result[0].usertypeId.toString() == "3") {
+          var clientDetails =
+              await LoginApi.getClientDetails(clientID: result[0].userId);
+          if (clientDetails.length != 0) {
+            await Get.find<StorageServices>().saveClientCredentials(
+              clientId: clientDetails[0].clientId,
+              clientFirstName: clientDetails[0].clientFirstName,
+              clientMiddlename: clientDetails[0].clientMiddlename,
+              clientLastname: clientDetails[0].clientLastname,
+              email: clientDetails[0].email,
+              clientImage: clientDetails[0].clientImage,
+            );
+            Get.offAll(() => HomeScreenView());
+          }
+        } else {
+          Get.snackbar(
+            "Message",
+            "Admin users must log in on web. Thank you!",
+            colorText: Colors.white,
+            backgroundColor: Colors.lightGreen,
+            snackPosition: SnackPosition.BOTTOM,
           );
-          Get.offAll(() => HomeScreenView());
         }
       } else {
         Get.snackbar(
           "Message",
-          "Admin users must log in on web. Thank you!",
+          "Please wait for 30 days for validation",
           colorText: Colors.white,
           backgroundColor: Colors.lightGreen,
-          snackPosition: SnackPosition.BOTTOM,
+          snackPosition: SnackPosition.TOP,
         );
       }
     }

@@ -6,6 +6,7 @@ import 'package:image_picker/image_picker.dart';
 
 import '../../login_screen/view/login_screen_view.dart';
 import '../api/customer_registration_api.dart';
+import '../view/customer_registration_view_upload_image.dart';
 
 class CustomerRegistrationController extends GetxController {
   final ImagePicker picker = ImagePicker();
@@ -129,5 +130,53 @@ class CustomerRegistrationController extends GetxController {
       add_customer_account();
       print("image uploaded");
     } else {}
+  }
+
+  checkIfEmailAddressExist() async {
+    var result =
+        await CustomerRegistrationApi.checkEmail(email: emailAddress.text);
+    if (result == false) {
+      Get.snackbar(
+        "Message",
+        "Sorry.. please try again later.",
+        colorText: Colors.white,
+        backgroundColor: Colors.lightGreen,
+        snackPosition: SnackPosition.TOP,
+      );
+    } else if (result > 0) {
+      Get.snackbar(
+        "Message",
+        "Email address already exist!",
+        colorText: Colors.white,
+        backgroundColor: Colors.lightGreen,
+        snackPosition: SnackPosition.TOP,
+      );
+    } else {
+      checkIfusernameExist();
+    }
+  }
+
+  checkIfusernameExist() async {
+    var result =
+        await CustomerRegistrationApi.checkUsername(username: username.text);
+    if (result == false) {
+      Get.snackbar(
+        "Message",
+        "Sorry.. please try again later.",
+        colorText: Colors.white,
+        backgroundColor: Colors.lightGreen,
+        snackPosition: SnackPosition.TOP,
+      );
+    } else if (result > 0) {
+      Get.snackbar(
+        "Message",
+        "User name already exist!",
+        colorText: Colors.white,
+        backgroundColor: Colors.lightGreen,
+        snackPosition: SnackPosition.TOP,
+      );
+    } else {
+      Get.to(() => CustomerRegistrationUploadImage());
+    }
   }
 }
