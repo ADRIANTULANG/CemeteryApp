@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:image_picker/image_picker.dart';
+import '../../login_screen/dialog/login_screen_dialogs.dart';
 import '../../login_screen/view/login_screen_view.dart';
 import '../api/cemetery_registration_api.dart';
 import '../model/cemetery_registration_model.dart';
@@ -20,9 +21,12 @@ class CemeteryRegistrationController extends GetxController {
   RxList<Marker> markers = <Marker>[].obs;
 
   RxBool isLoading = false.obs;
+  RxBool isObscure = false.obs;
+  RxBool isObscureconfirm = false.obs;
 
   RxDouble initialLatitude = 0.0.obs;
   RxDouble initialLongitude = 0.0.obs;
+
   TextEditingController placesString = TextEditingController();
 
   Timer? debounce;
@@ -305,14 +309,14 @@ class CemeteryRegistrationController extends GetxController {
           cemeteryDescription: listOfImage[i].imageDescription,
           cemeteryID: cemeteryID);
     }
-    Get.offAll(LoginScreen());
-    Get.snackbar(
-      "Message",
-      "Congratulations! Your account was successfully created!",
-      colorText: Colors.white,
-      backgroundColor: Colors.lightGreen,
-      snackPosition: SnackPosition.BOTTOM,
-    );
+    await Get.offAll(LoginScreen());
+    // LoginDialogs.showMessagePlaintext();
+    Get.snackbar("Message",
+        "Congratulations! Your application was successfully created!. Please wait for 30/days for the account validation",
+        colorText: Colors.white,
+        backgroundColor: Colors.lightGreen,
+        snackPosition: SnackPosition.BOTTOM,
+        duration: Duration(seconds: 5));
   }
 
   checkIfEmailAddressExist() async {

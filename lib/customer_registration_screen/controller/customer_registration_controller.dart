@@ -35,6 +35,9 @@ class CustomerRegistrationController extends GetxController {
 
   String verifIDReceived = "";
 
+  RxBool isObscure = true.obs;
+  RxBool isObscureconfirm = true.obs;
+
   @override
   void onClose() {
     super.onClose();
@@ -105,13 +108,12 @@ class CustomerRegistrationController extends GetxController {
         imageName: imageName.value.toString());
     if (result == true) {
       Get.offAll(LoginScreen());
-      Get.snackbar(
-        "Message",
-        "Congratulations! Your account was successfully created!",
-        colorText: Colors.white,
-        backgroundColor: Colors.lightGreen,
-        snackPosition: SnackPosition.BOTTOM,
-      );
+      Get.snackbar("Message",
+          "Congratulations! Your application was successfully created!. Please wait for 30/days for the account validation",
+          colorText: Colors.white,
+          backgroundColor: Colors.lightGreen,
+          snackPosition: SnackPosition.BOTTOM,
+          duration: Duration(seconds: 5));
     } else {
       Get.snackbar(
         "Message",

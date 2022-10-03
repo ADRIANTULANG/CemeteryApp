@@ -173,16 +173,35 @@ class CustomerRegistrationView extends GetView<CustomerRegistrationController> {
                 padding: EdgeInsets.only(left: 5.w, right: 5.w),
                 height: 6.h,
                 width: 100.w,
-                child: TextField(
-                  obscureText: false,
-                  controller: controller.password,
-                  decoration: InputDecoration(
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(9)),
-                      labelText: 'Password',
-                      hintText: 'Enter Password',
-                      hintStyle: TextStyle(fontSize: 12.sp),
-                      labelStyle: TextStyle(fontSize: 12.sp)),
+                child: Obx(
+                  () => TextField(
+                    obscureText: controller.isObscure.value,
+                    controller: controller.password,
+                    decoration: InputDecoration(
+                        suffixIcon: InkWell(
+                          onTap: () {
+                            if (controller.isObscure.value == true) {
+                              controller.isObscure.value = false;
+                            } else {
+                              controller.isObscure.value = true;
+                            }
+                          },
+                          child: Obx(
+                            () => Icon(
+                              Icons.remove_red_eye,
+                              color: controller.isObscure.value == false
+                                  ? AppColor.mainColors
+                                  : Colors.grey,
+                            ),
+                          ),
+                        ),
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(9)),
+                        labelText: 'Password',
+                        hintText: 'Enter Password',
+                        hintStyle: TextStyle(fontSize: 12.sp),
+                        labelStyle: TextStyle(fontSize: 12.sp)),
+                  ),
                 ),
               ),
               SizedBox(
@@ -192,16 +211,35 @@ class CustomerRegistrationView extends GetView<CustomerRegistrationController> {
                 padding: EdgeInsets.only(left: 5.w, right: 5.w),
                 height: 6.h,
                 width: 100.w,
-                child: TextField(
-                  controller: controller.confirmPassword,
-                  obscureText: false,
-                  decoration: InputDecoration(
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(9)),
-                      labelText: 'Confirm Password',
-                      hintText: 'Enter Confirm Password',
-                      hintStyle: TextStyle(fontSize: 12.sp),
-                      labelStyle: TextStyle(fontSize: 12.sp)),
+                child: Obx(
+                  () => TextField(
+                    controller: controller.confirmPassword,
+                    obscureText: controller.isObscureconfirm.value,
+                    decoration: InputDecoration(
+                        suffixIcon: InkWell(
+                          onTap: () {
+                            if (controller.isObscureconfirm.value == true) {
+                              controller.isObscureconfirm.value = false;
+                            } else {
+                              controller.isObscureconfirm.value = true;
+                            }
+                          },
+                          child: Obx(
+                            () => Icon(
+                              Icons.remove_red_eye,
+                              color: controller.isObscureconfirm.value == false
+                                  ? AppColor.mainColors
+                                  : Colors.grey,
+                            ),
+                          ),
+                        ),
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(9)),
+                        labelText: 'Confirm Password',
+                        hintText: 'Enter Confirm Password',
+                        hintStyle: TextStyle(fontSize: 12.sp),
+                        labelStyle: TextStyle(fontSize: 12.sp)),
+                  ),
                 ),
               ),
             ],

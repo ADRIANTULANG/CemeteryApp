@@ -79,4 +79,16 @@ class LoginDialogs {
           ),
         )));
   }
+
+  static showMessagePlaintext() {
+    Get.defaultDialog(
+        title: "Message",
+        content: Container(
+          child: Text(
+              "Your application was successfully created!. Please wait for 30/days for the account approval"),
+        ),
+        onConfirm: () {
+          Get.back();
+        });
+  }
 }
