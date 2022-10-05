@@ -21,7 +21,7 @@ class CemeteryRegistrationOtp extends GetView<CemeteryRegistrationController> {
             Container(
                 alignment: Alignment.center,
                 child: Text(
-                  "Please Enter OPT.",
+                  "Please Enter OTP.",
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                   ),

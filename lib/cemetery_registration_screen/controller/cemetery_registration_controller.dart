@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:image_picker/image_picker.dart';
-import '../../login_screen/dialog/login_screen_dialogs.dart';
 import '../../login_screen/view/login_screen_view.dart';
 import '../api/cemetery_registration_api.dart';
 import '../model/cemetery_registration_model.dart';
@@ -309,7 +308,7 @@ class CemeteryRegistrationController extends GetxController {
           cemeteryDescription: listOfImage[i].imageDescription,
           cemeteryID: cemeteryID);
     }
-    await Get.offAll(LoginScreen());
+    Get.offAll(LoginScreen());
     // LoginDialogs.showMessagePlaintext();
     Get.snackbar("Message",
         "Congratulations! Your application was successfully created!. Please wait for 30/days for the account validation",
