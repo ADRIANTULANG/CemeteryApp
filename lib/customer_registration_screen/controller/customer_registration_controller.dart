@@ -108,8 +108,7 @@ class CustomerRegistrationController extends GetxController {
         imageName: imageName.value.toString());
     if (result == true) {
       Get.offAll(LoginScreen());
-      Get.snackbar("Message",
-          "Congratulations! Your application was successfully created!. Please wait for 30/days for the account validation",
+      Get.snackbar("Message", "Congratulations! Account succesfully created.",
           colorText: Colors.white,
           backgroundColor: Colors.lightGreen,
           snackPosition: SnackPosition.BOTTOM,
@@ -117,7 +116,7 @@ class CustomerRegistrationController extends GetxController {
     } else {
       Get.snackbar(
         "Message",
-        "Sorry. Account not created ",
+        "Sorry. Please try again later",
         colorText: Colors.white,
         backgroundColor: Colors.lightGreen,
         snackPosition: SnackPosition.BOTTOM,

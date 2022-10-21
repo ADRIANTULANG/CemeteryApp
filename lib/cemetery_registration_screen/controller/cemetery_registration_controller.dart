@@ -311,7 +311,7 @@ class CemeteryRegistrationController extends GetxController {
     Get.offAll(LoginScreen());
     // LoginDialogs.showMessagePlaintext();
     Get.snackbar("Message",
-        "Congratulations! Your application was successfully created!. Please wait for 30/days for the account validation",
+        "Congratulations! Your application was successfully created!. Please wait 2 to 5 days for the account validation",
         colorText: Colors.white,
         backgroundColor: Colors.lightGreen,
         snackPosition: SnackPosition.BOTTOM,
